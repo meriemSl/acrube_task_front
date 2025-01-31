@@ -25,10 +25,10 @@ export class LaunchComponentComponent {
 
     if(!this.UrlForm.invalid) 
       {
-        this.urlsService.postApi(`${environment.backendEndpoint}/createUrl`, {url: this.UrlForm.get('urlControl')?.value}).subscribe((response: any) => {
+        this.urlsService.postApi(`${environment.backendEndpoint}/createUrl`, {urlInput: this.UrlForm.get('urlControl')?.value}).subscribe((response: any) => {
           console.log(response);
           this.hashUrl = response.hashUrl;
-          this.shortedUrl = `acrube.onrender.com/${response.hashUrl}`;
+          this.shortedUrl = `https://acrube.onrender.com/${response.hashUrl}`;
         }, (error: any) => {
           console.log(error.message);
         });
@@ -38,7 +38,7 @@ export class LaunchComponentComponent {
   };
   redirectToOriginalUrl() {
     this.urlsService.getApi(environment.backendEndpoint+'/'+this.hashUrl).subscribe((response: any) => {
-      window.open(response.originUrl, '_blank');
+      console.log('Received:', response);
     }, (error: any) => {
       console.log(error.message);
     });

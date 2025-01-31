@@ -1,0 +1,10 @@
+{
+  "hosting": {
+    "public": "dist/acrube_task_front",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}

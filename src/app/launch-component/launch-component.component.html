@@ -1,42 +1,40 @@
-<div class="container">
+<div class="container" style="max-width: 800px; margin: 0 auto; padding: 20px;">
     <mat-card appearance="outlined" class="card">
         <mat-card-header>
-            <mat-card-title>Shorten A Long Link</mat-card-title>
-            <mat-card-subtitle>Get your link for free</mat-card-subtitle>
+            <mat-card-title style="font-size: 24px; font-weight: 500;">Shorten A Long Link</mat-card-title>
+            <mat-card-subtitle style="font-size: 14px; color: #757575;">Get your link for free</mat-card-subtitle>
         </mat-card-header>
+
         <form [formGroup]="UrlForm" (ngSubmit)="GenerateShortUrl()">
             <mat-card-content>
-                <div class="example-button-container">
+                <div class="form-field-container" style="margin-bottom: 20px;">
                     <mat-form-field appearance="outline" style="width: 100%;">
                         <mat-label>Your Url</mat-label>
-                        <input matInput type="text" formControlName="urlControl" style="width: 90%;">
-                        <mat-error
-                            *ngIf="UrlForm.get('urlControl')?.hasError('required') && UrlForm.get('urlControl')?.touched">
+                        <input matInput type="text" formControlName="urlControl" placeholder="Enter URL" style="width: 100%;">
+                        <mat-error *ngIf="UrlForm.get('urlControl')?.hasError('required') && UrlForm.get('urlControl')?.touched">
                             Url is required
                         </mat-error>
-                        <mat-error
-                            *ngIf="UrlForm.get('urlControl')?.hasError('pattern') && UrlForm.get('urlControl')?.touched">
-                            invalid Url Format
+                        <mat-error *ngIf="UrlForm.get('urlControl')?.hasError('pattern') && UrlForm.get('urlControl')?.touched">
+                            Invalid Url Format
                         </mat-error>
                     </mat-form-field>
                 </div>
-                <div class="example-button-container">
-                    <button mat-fab extended (click)="GenerateShortUrl()" color="primary" style="float: inline-end;">
-                        <mat-icon>manage_search</mat-icon>
-                        Get Your Link
+
+                <div class="button-container" style="text-align: right;">
+                    <button mat-raised-button color="primary" (click)="GenerateShortUrl()" style="width: auto;">
+                        <mat-icon>manage_search</mat-icon> Get Your Link
                     </button>
                 </div>
-                <div class="example-button-container" *ngIf="shortedUrl">
-                    <h3>Generated Urls</h3>
-                    <div style="display: flex; gap: 12px;">
-                        <span  (click)="redirectToOriginalUrl()">{{shortedUrl}}</span>
-                        <mat-icon *ngIf="!copied" [cdkCopyToClipboard]="shortedUrl" (click)="copied=true"> content_copy
-                        </mat-icon>
-                        <mat-icon *ngIf="copied"> check_circle </mat-icon>
+
+                <div class="shortened-url-container" *ngIf="shortedUrl" style="margin-top: 20px;">
+                    <h3 style="font-size: 18px; font-weight: 500;">Generated Urls</h3>
+                    <div style="display: flex; gap: 12px; align-items: center;">
+                        <a [href]="shortedUrl" target="_blank" style="font-size: 16px; color: #1976D2; text-decoration: none; overflow: hidden; text-overflow: ellipsis; max-width: 350px;">{{shortedUrl}}</a>
+                        <mat-icon *ngIf="!copied" [cdkCopyToClipboard]="shortedUrl" (click)="copied=true" style="cursor: pointer;">content_copy</mat-icon>
+                        <mat-icon *ngIf="copied" style="color: #9f57c6;">check_circle</mat-icon>
                     </div>
                 </div>
             </mat-card-content>
-
         </form>
     </mat-card>
 </div>

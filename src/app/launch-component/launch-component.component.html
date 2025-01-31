@@ -1,0 +1,42 @@
+<div class="container">
+    <mat-card appearance="outlined" class="card">
+        <mat-card-header>
+            <mat-card-title>Shorten A Long Link</mat-card-title>
+            <mat-card-subtitle>Get your link for free</mat-card-subtitle>
+        </mat-card-header>
+        <form [formGroup]="UrlForm" (ngSubmit)="GenerateShortUrl()">
+            <mat-card-content>
+                <div class="example-button-container">
+                    <mat-form-field appearance="outline" style="width: 100%;">
+                        <mat-label>Your Url</mat-label>
+                        <input matInput type="text" formControlName="urlControl" style="width: 90%;">
+                        <mat-error
+                            *ngIf="UrlForm.get('urlControl')?.hasError('required') && UrlForm.get('urlControl')?.touched">
+                            Url is required
+                        </mat-error>
+                        <mat-error
+                            *ngIf="UrlForm.get('urlControl')?.hasError('pattern') && UrlForm.get('urlControl')?.touched">
+                            invalid Url Format
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="example-button-container">
+                    <button mat-fab extended (click)="GenerateShortUrl()" color="primary" style="float: inline-end;">
+                        <mat-icon>manage_search</mat-icon>
+                        Get Your Link
+                    </button>
+                </div>
+                <div class="example-button-container" *ngIf="shortedUrl">
+                    <h3>Generated Urls</h3>
+                    <div style="display: flex; gap: 12px;">
+                        <span  (click)="redirectToOriginalUrl()">{{shortedUrl}}</span>
+                        <mat-icon *ngIf="!copied" [cdkCopyToClipboard]="shortedUrl" (click)="copied=true"> content_copy
+                        </mat-icon>
+                        <mat-icon *ngIf="copied"> check_circle </mat-icon>
+                    </div>
+                </div>
+            </mat-card-content>
+
+        </form>
+    </mat-card>
+</div>
